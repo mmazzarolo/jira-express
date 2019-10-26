@@ -29,5 +29,5 @@ Wilo is still a W.I.P.
 
 ## Contributing
 
-See [./CONTRIBUTING.md](./CONTRIBUTING.md).  
+See [CONTRIBUTING.md](./CONTRIBUTING.md).  
 Pull requests are welcome. File an issue for ideas, conversation or feedback.
