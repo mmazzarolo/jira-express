@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { uniq } from "lodash";
 
-const mockCookie = {
-  domain: "ciao.atlassian.net"
-};
-
+// Uses the Chrome extension API to retrieve the browser cookies based on the
+// options parameter.
+// If the runtime is not a Chrome extension return a fake cookie instead
 const getChromeCookies = function(options: chrome.cookies.GetAllDetails) {
   if (process.env.REACT_APP_RUNTIME_ENV === "browser") {
+    const mockCookie = {
+      domain: "ciao.atlassian.net"
+    };
     const cookies = [mockCookie] as chrome.cookies.Cookie[];
     return cookies;
   } else {
@@ -17,7 +19,8 @@ const getChromeCookies = function(options: chrome.cookies.GetAllDetails) {
   }
 };
 
-export const useCookies = function(domain: string) {
+// React hook that retrieves the Chrome cookies on mount.
+const useCookies = function(domain: string) {
   const [cookies, setCookies] = useState<chrome.cookies.Cookie[]>([]);
   const [areCookiesLoaded, setAreCookiesLoaded] = useState(false);
   const isMounted = useRef(false);
@@ -34,13 +37,14 @@ export const useCookies = function(domain: string) {
   return [cookies, areCookiesLoaded] as const;
 };
 
-const domainsBlacklist = [
-  ".atlassian.net",
-  "developer.atlassian.net",
-  "ecosystem.atlassian.net"
-];
-
+// React hook that retrieves the user's Jira domains by checking the Chrome
+// cookies.
 export const useJiraDomains = function() {
+  const domainsBlacklist = [
+    ".atlassian.net",
+    "developer.atlassian.net",
+    "ecosystem.atlassian.net"
+  ];
   const [cookies, areCookiesLoaded] = useCookies("domain");
   const cookieDomains = cookies.map(cookie => cookie.domain);
   const domains = uniq(cookieDomains)
