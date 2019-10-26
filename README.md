@@ -25,7 +25,7 @@ Wilo is still a W.I.P.
 
 ### Resources and acknowledgements
 
-- Thanks to [Pablo Stanly](https://twitter.com/pablostanley) for the beautiful onboarding doodle. Make sure to check all its open source doodles at [opendoodles.com](https://www.opendoodles.com/).
+- Thanks to [Pablo Stanley](https://twitter.com/pablostanley) for the beautiful onboarding doodle. Make sure to check all its open source doodles at [opendoodles.com](https://www.opendoodles.com/).
 
 ## Contributing
 
