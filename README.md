@@ -6,7 +6,7 @@
 
 &nbsp;
 
-Wilo is browser that improves the Jira user experience.  
+Wilo is a browser extension that aims at improving the Jira user experience.  
 Wilo is still a W.I.P.
 
 &nbsp;

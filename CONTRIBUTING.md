@@ -3,7 +3,7 @@
 ## Project Structure
 
 Wilo was bootstrapped with Create-React-App.  
-The directory structure looks like a monorepo one: in the `src` directory there are a few "modules/packages" that separates the app in different functional blocks.  
+The directory structure looks like a monorepo: in `src` you can find "modules/packages" that separates the app in different functional blocks.  
 Every module is prefixed by `wiro-`.  
 Every module can be imported directly using its absolute path.
 
