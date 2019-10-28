@@ -11,7 +11,7 @@ Every module can be imported directly using its absolute path.
 src
  ├── wilo-api // Jira APIs
  │
- ├── wilo-api // Entry-point to the app/extension
+ ├── wilo-app // Entry-point to the app/extension
  │
  ├── wilo-auth // Onboarding and domain picker screen
  │
