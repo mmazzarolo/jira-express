@@ -13,7 +13,7 @@
     "lint:fix": "eslint --fix 'src/' --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "polished": "^3.4.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
