@@ -1,4 +1,4 @@
-import useFetch, { Options } from "use-http";
+import useFetch, { IncomingOptions } from "use-http";
 
 function buildJiraApiUrl(
   domain: string,
@@ -8,7 +8,7 @@ function buildJiraApiUrl(
   let url = new URL(
     `https://${domain}.atlassian.net/rest/api/3/${relativeUrl}`
   );
-  Object.keys(queryParams).forEach(key =>
+  Object.keys(queryParams).forEach((key) =>
     url.searchParams.append(key, `${queryParams[key]}`)
   );
   return url.href;
@@ -25,41 +25,49 @@ function restoreApiResult(relativeUrl: string) {
   return storedApiResult ? JSON.parse(storedApiResult) : {};
 }
 
-export interface ApiOptions extends Options {
+export interface ApiOptions extends IncomingOptions {
   queryParams?: Record<string, string | number>;
   shouldCache?: boolean;
   domain?: string;
 }
 
-export function useApi(relativeUrl: string, options: ApiOptions = {}) {
+export function useApi(
+  relativeUrl: string,
+  options: ApiOptions = {},
+  deps?: any
+) {
   const data = options.shouldCache ? restoreApiResult(relativeUrl) : {};
   options.data = data;
   const domain =
     options.domain || localStorage.getItem("domain") || "invalid-domain";
   const queryParams = options.queryParams;
   const url = buildJiraApiUrl(domain, relativeUrl, queryParams);
-  return useFetch(url, {
-    ...options,
-    data,
-    interceptors: {
-      response: function(response) {
-        if (options.shouldCache) {
-          persistApiResult(relativeUrl, response.data);
-        }
-        return response;
-      }
-    }
-  });
+  return useFetch(
+    url,
+    {
+      ...options,
+      data,
+      interceptors: {
+        response: async function ({ response }) {
+          if (options.shouldCache) {
+            persistApiResult(relativeUrl, response.data);
+          }
+          return response;
+        },
+      },
+    },
+    deps
+  );
 }
 
 export function useJiraCurrentUser(options?: ApiOptions) {
   return useApi("myself", options);
 }
 
-export function useJiraRecentIssues(options?: ApiOptions) {
+export function useJiraRecentIssues(options?: ApiOptions, deps?: any[]) {
   const queryParams = {
     jql: "issuekey in issueHistory() order by lastViewed DESC",
-    maxResult: 10 // TODO: why is this param not working?
+    maxResult: 10, // TODO: why is this param not working?
   };
-  return useApi("search", { ...options, queryParams });
+  return useApi("search", { ...options, queryParams }, deps);
 }

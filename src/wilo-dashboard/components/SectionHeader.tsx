@@ -8,7 +8,7 @@ interface Props {
   isLoading?: boolean;
 }
 
-export const SectionHeader: FC<Props> = function({ label, isLoading }) {
+export const SectionHeader: FC<Props> = function ({ label, isLoading }) {
   return (
     <Root>
       <Label>{label.toUpperCase()}</Label>

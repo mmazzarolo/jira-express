@@ -4,7 +4,7 @@ import { FC } from "react";
 import { colorPrimary } from "wilo-design";
 import logoImage from "../assets/logo.png";
 
-export const Toolbar: FC = function() {
+export const Toolbar: FC = function () {
   return (
     <Root>
       <Logo src={logoImage} />

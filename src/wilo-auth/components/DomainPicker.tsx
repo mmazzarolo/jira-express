@@ -9,7 +9,7 @@ import { useHistory } from "react-router";
 
 const hideDuration = 400;
 
-export const DomainPicker: FC = function() {
+export const DomainPicker: FC = function () {
   const history = useHistory();
   const [recentDomains] = useJiraDomains();
   const [domain, setDomain] = useState("");
@@ -25,7 +25,7 @@ export const DomainPicker: FC = function() {
   async function handleButtonClick() {
     if (loading || hiding) return;
     const currentUser = await get();
-    if (currentUser && currentUser.name) {
+    if (currentUser && currentUser.displayName) {
       localStorage.setItem("domain", domain);
       if (hiding) return;
       setHiding(true);

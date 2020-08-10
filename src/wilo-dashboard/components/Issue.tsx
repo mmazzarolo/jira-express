@@ -9,7 +9,7 @@ interface Props {
   data: JiraIssue;
 }
 
-export const Issue: FC<Props> = function({ data }) {
+export const Issue: FC<Props> = function ({ data }) {
   const iconUrl = data.fields.issuetype.iconUrl;
   const title = data.fields.summary;
   const key = data.key;

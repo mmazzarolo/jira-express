@@ -3,7 +3,7 @@ import { FC } from "react";
 import { Toolbar } from "./Toolbar";
 import { RecentIssues } from "./RecentIssues";
 
-export const Dashboard: FC = function() {
+export const Dashboard: FC = function () {
   return (
     <>
       <Toolbar />

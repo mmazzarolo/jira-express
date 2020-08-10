@@ -18,28 +18,28 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.2.0",
+    "react-scripts": "^3.4.1",
     "react-spring": "^8.0.27",
-    "styled-components": "^4.4.0",
-    "styled-icons": "^8.4.1",
+    "styled-components": "^5.1.1",
+    "styled-icons": "^10.15.0",
     "styled-normalize": "^8.0.6",
     "typescript": "^3.6.4",
-    "use-http": "^0.1.95"
+    "use-http": "^1.0.13"
   },
   "devDependencies": {
-    "@types/chrome": "^0.0.88",
-    "@types/jest": "24.0.18",
+    "@types/chrome": "0.0.122",
+    "@types/jest": "^26.0.9",
     "@types/lodash": "^4.14.118",
-    "@types/node": "12.7.3",
-    "@types/react": "16.9.2",
-    "@types/react-dom": "16.9.0",
+    "@types/node": "^14.0.27",
+    "@types/react": "^16.9.45",
+    "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.0",
-    "@types/styled-components": "^4.1.4",
+    "@types/styled-components": "^5.1.2",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "husky": "^3.0.9",
-    "lint-staged": "^9.4.2",
-    "prettier": "^1.18.2",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
     "webpack-extension-reloader": "^1.1.1"
   },
   "eslintConfig": {
@@ -47,14 +47,10 @@
   },
   "browserslist": {
     "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+      "last 1 chrome version"
     ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 chrome version"
     ]
   },
   "husky": {
