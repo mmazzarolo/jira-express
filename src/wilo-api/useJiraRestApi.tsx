@@ -71,3 +71,15 @@ export function useJiraRecentIssues(options?: ApiOptions, deps?: any[]) {
   };
   return useApi("search", { ...options, queryParams }, deps);
 }
+
+export function useJiraSearch(
+  query: string,
+  options?: ApiOptions,
+  deps?: any[]
+) {
+  const queryParams = {
+    jql: `Summary ~ "${query}"`,
+    maxResult: 10, // TODO: why is this param not working?
+  };
+  return useApi("search", { ...options, queryParams }, deps);
+}
