@@ -7,7 +7,7 @@ interface Props {
   onChange: (query: string) => void;
 }
 
-export const TextInput: FC<Props> = function({ value, onChange }) {
+export const TextInput: FC<Props> = function ({ value, onChange }) {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value);
   };

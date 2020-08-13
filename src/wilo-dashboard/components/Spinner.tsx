@@ -2,7 +2,7 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { FC } from "react";
 
-export const Spinner: FC = function() {
+export const Spinner: FC = function () {
   return <Root />;
 };
 

@@ -7,7 +7,7 @@ import dogDoodleImage from "../assets/dog-doodle.png";
 
 const hideDuration = 400;
 
-export const Onboarding: FC = function() {
+export const Onboarding: FC = function () {
   const [hiding, setHiding] = useState(false);
   const history = useHistory();
 
