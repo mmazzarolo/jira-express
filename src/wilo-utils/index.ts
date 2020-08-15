@@ -1,2 +1,2 @@
 export * from "./delay";
-export * from "./useOnUpdate";
+export * from "./useDebounce";

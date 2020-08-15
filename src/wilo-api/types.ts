@@ -25,7 +25,7 @@ export interface JiraIssue {
   fields: {
     assignee: JiraUser;
     created: string;
-    creatore: JiraUser;
+    creator: JiraUser;
     issuetype: {
       description: string;
       iconUrl: string;

@@ -2,31 +2,42 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { FC } from "react";
 
-export const Spinner: FC = function () {
-  return <Root />;
+interface Props {
+  color?: string;
+}
+
+export const Spinner: FC<Props> = function ({ color = "white" }) {
+  return (
+    <Root>
+      <Content color={color} />
+    </Root>
+  );
 };
 
 const Spin = keyframes`
-  50% {
-    border-radius: 50%;
-    transform: scale(0.5) rotate(360deg);
-  }
-  100% {
-    transform: scale(1) rotate(720deg);
-  }
+  to {transform: rotate(360deg);}
 `;
 
 const Root = styled.div`
   position: relative;
+  width: 24px;
+  height: 24px;
+`;
 
-  :before {
+const Content = styled.div<Props>`
+  &::before {
     content: "";
-    position: relative;
-    display: block;
-    animation: ${Spin} 2.5s cubic-bezier(0.75, 0, 0.5, 1) infinite normal;
-    width: 1em;
-    height: 1em;
-    background-color: #1c78f2;
-    opacity: 0.4;
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    margin-left: -10px;
+    border-radius: 50%;
+    border-top: 2px solid ${(props) => props.color};
+    border-right: 2px solid transparent;
+    animation: ${Spin} 0.6s linear infinite;
   }
 `;

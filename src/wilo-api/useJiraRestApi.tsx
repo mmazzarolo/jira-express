@@ -1,4 +1,5 @@
 import useFetch, { IncomingOptions } from "use-http";
+import { getJiraDomain } from "./jiraDomainManager";
 
 function buildJiraApiUrl(
   domain: string,
@@ -38,8 +39,7 @@ export function useApi(
 ) {
   const data = options.shouldCache ? restoreApiResult(relativeUrl) : {};
   options.data = data;
-  const domain =
-    options.domain || localStorage.getItem("domain") || "invalid-domain";
+  const domain = options.domain || getJiraDomain() || "invalid-domain";
   const queryParams = options.queryParams;
   const url = buildJiraApiUrl(domain, relativeUrl, queryParams);
   return useFetch(

@@ -1,6 +1,10 @@
 import React, { FC, useState } from "react";
 import styled, { keyframes, css } from "styled-components";
-import { useJiraCurrentUser, useJiraDomains } from "wilo-api";
+import {
+  useJiraCurrentUser,
+  useJiraAvailableDomains,
+  setJiraDomain,
+} from "wilo-api";
 import { colorGrayLight, colorPrimaryDark } from "wilo-design";
 import { delay } from "wilo-utils";
 import { Button } from "./Button";
@@ -11,7 +15,7 @@ const hideDuration = 400;
 
 export const DomainPicker: FC = function () {
   const history = useHistory();
-  const [recentDomains] = useJiraDomains();
+  const [recentDomains] = useJiraAvailableDomains();
   const [domain, setDomain] = useState("");
   const [hiding, setHiding] = useState(false);
   const { get, loading } = useJiraCurrentUser({ domain: domain });
@@ -26,7 +30,7 @@ export const DomainPicker: FC = function () {
     if (loading || hiding) return;
     const currentUser = await get();
     if (currentUser && currentUser.displayName) {
-      localStorage.setItem("domain", domain);
+      setJiraDomain(domain);
       if (hiding) return;
       setHiding(true);
       await delay(hideDuration);

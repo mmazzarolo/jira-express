@@ -4,9 +4,10 @@ import { MemoryRouter, Switch, Route } from "react-router-dom";
 import { Auth } from "wilo-auth";
 import { Dashboard } from "wilo-dashboard";
 import { GlobalStyle } from "wilo-design";
+import { getJiraDomain } from "wilo-api";
 
 function getInitialEntries() {
-  const domain = localStorage.getItem("domain");
+  const domain = getJiraDomain();
   return domain ? ["/dashboard"] : ["/auth/onboarding"];
 }
 

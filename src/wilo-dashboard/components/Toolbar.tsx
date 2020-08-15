@@ -1,11 +1,12 @@
 import React, { FC, ChangeEvent, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { colorPrimary, colorPrimaryDark, colorGrayLight } from "wilo-design";
-import logoImage from "../assets/logo.png";
+import { colorPrimary } from "wilo-design";
 import logoInvertedImage from "../assets/logo-inverted.png";
 import { Close, Search } from "@styled-icons/ionicons-solid";
+import { Spinner } from "./Spinner";
 
 interface Props {
+  loading?: boolean;
   searchText: string;
   searchEnabled: boolean;
   onSearchInputChange: (text: string) => void;
@@ -14,6 +15,7 @@ interface Props {
 }
 
 export const Toolbar: FC<Props> = function ({
+  loading,
   searchText,
   searchEnabled,
   onSearchInputChange,
@@ -30,10 +32,12 @@ export const Toolbar: FC<Props> = function ({
     onSearchInputChange(e.target.value);
   };
   return (
-    <Root searchEnabled={searchEnabled}>
+    <Root>
+      <LogoWrapper>
+        {loading ? <Spinner /> : <Logo src={logoInvertedImage} />}
+      </LogoWrapper>
       {searchEnabled && (
         <>
-          <Logo src={logoImage} />
           <Input
             ref={inputRef}
             placeholder={"Search..."}
@@ -47,7 +51,6 @@ export const Toolbar: FC<Props> = function ({
       )}
       {!searchEnabled && (
         <>
-          <Logo src={logoInvertedImage} />
           <Title>Recent issues</Title>
           <IconWrapper onClick={onSearchClick}>
             <SearchIcon />
@@ -58,28 +61,32 @@ export const Toolbar: FC<Props> = function ({
   );
 };
 
-const Root = styled.div<{ searchEnabled: boolean }>`
+const Root = styled.div`
   display: flex;
   flex-direction: row;
-  background-color: ${(props) =>
-    props.searchEnabled ? "white" : colorPrimary};
+  background-color: ${colorPrimary};
   padding: 8px;
   align-items: center;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
   z-index: 2;
 `;
 
+const LogoWrapper = styled.div`
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+`;
+
 const Logo = styled.img`
   color: white;
   width: 24px;
   height: 24px;
-  margin-right: 6px;
 `;
 
 const Title = styled.p`
   color: white;
   font-size: 14px;
-  margin: 0px 6px;
+  margin: 0px;
   flex-grow: 1;
 `;
 
@@ -90,30 +97,28 @@ const Input = styled.input`
   transition: all 0.6s ease-out;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid white;
-  border-bottom-color: ${colorGrayLight};
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
   outline: 0;
-  color: ${colorPrimaryDark};
+  color: white;
   padding: 0;
 
   &:hover:focus {
     outline: 0;
     border: none;
     border-bottom: 1px solid white;
-    border-bottom-color: blue;
   }
 
   &:focus {
     border: none;
     border-bottom: 1px solid white;
-    border-bottom-color: ${colorPrimary};
   }
 
   &:hover::placeholder {
   }
 
   &::placeholder {
-    color: ${colorGrayLight};
+    color: white;
+    opacity: 0.5;
   }
 `;
 
@@ -153,5 +158,5 @@ const SearchIcon = styled(Search)`
 const CloseIcon = styled(Close)`
   width: 22px;
   height: 22px;
-  color: ${colorPrimaryDark};
+  color: white;
 `;
