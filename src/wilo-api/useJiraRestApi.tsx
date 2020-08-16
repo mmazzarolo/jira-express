@@ -37,8 +37,9 @@ export function useApi(
   options: ApiOptions = {},
   deps?: any
 ) {
-  const data = options.shouldCache ? restoreApiResult(relativeUrl) : {};
+  const data = options.persist ? restoreApiResult(relativeUrl) : {};
   options.data = data;
+  options.persist = undefined; // Override use-http's own persist mechanism
   const domain = options.domain || getJiraDomain() || "invalid-domain";
   const queryParams = options.queryParams;
   const url = buildJiraApiUrl(domain, relativeUrl, queryParams);

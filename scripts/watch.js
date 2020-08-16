@@ -10,6 +10,8 @@ const webpack = require("webpack");
 const configFactory = require("react-scripts/config/webpack.config");
 const colors = require("colors/safe");
 const ExtensionReloader = require("webpack-extension-reloader");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 // Create the Webpack config usings the same settings used by the "start" script
 // of create-react-app.
@@ -25,22 +27,32 @@ config.entry = config.entry.filter(function (entry) {
 config.output.path = paths.appBuild;
 paths.publicUrl = paths.appBuild + "/";
 
+// TODO:
+// config.plugins.push(new CleanWebpackPlugin());
+
 // Add the webpack-extension-reloader plugin to the Webpack config.
 // It notifies and reloads the extension on code changes.
 config.plugins.push(new ExtensionReloader());
 
+// TODO:
+config.plugins.push(
+  new CopyWebpackPlugin({
+    patterns: [{ from: "./chrome" }],
+  })
+);
+
 // Start Webpack in watch mode.
 const compiler = webpack(config);
-const watcher = compiler.watch({}, function (err) {
+compiler.watch({}, function (err) {
   if (err) {
     console.error(err);
   } else {
     // Every time Webpack finishes recompiling copy all the assets of the
     // "public" dir in the "build" dir (except for the index.html)
-    fs.copySync(paths.appPublic, paths.appBuild, {
-      dereference: true,
-      filter: (file) => file !== paths.appHtml,
-    });
+    // fs.copySync(paths.appPublic, paths.appBuild, {
+    //   dereference: true,
+    //   filter: (file) => file !== paths.appHtml,
+    // });
     // Report on console the succesfull build
     console.clear();
     console.info(colors.green("Compiled successfully!"));

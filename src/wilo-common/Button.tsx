@@ -1,20 +1,10 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { darken, transparentize } from "polished";
 import { colorPrimary } from "wilo-design";
 
-const fadeScaleUp = keyframes`
-  from {
-    opacity: 0;
-    transform: scale(.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-`;
+interface Props {}
 
-export const Button = styled.button`
-  opacity: 0;
+export const Button = styled.button<Props>`
   font-size: 16px;
   padding: 1em 3em;
   bottom: 24px;
@@ -25,7 +15,6 @@ export const Button = styled.button`
   border: none;
   cursor: pointer;
   transition: all 400ms;
-  animation: ${fadeScaleUp} 400ms ease-in 600ms forwards;
 
   &:focus {
     outline: 0;
