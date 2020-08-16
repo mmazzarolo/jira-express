@@ -1,11 +1,13 @@
 import React, { FC } from "react";
 import styled, { keyframes } from "styled-components";
-import logo from "./logo.png";
+import { logoImage } from "wilo-assets";
 
-interface Props {}
+interface Props {
+  size?: number;
+}
 
-export const PulsatingLogo: FC<Props> = function () {
-  return <Logo src={logo} />;
+export const PulsatingLogo: FC<Props> = function ({ size = 80 }) {
+  return <Logo src={logoImage} size={size} />;
 };
 
 const Ping = keyframes`
@@ -23,8 +25,8 @@ const Ping = keyframes`
 }
 `;
 
-export const Logo = styled.img`
-  animation: ${Ping} 1.4s ease-in-out infinite both;
-  width: 80px;
-  height: 80px;
+export const Logo = styled.img<{ size: number }>`
+  animation: ${Ping} 1400ms ease-in-out infinite both;
+  width: ${(props) => props.size}px;
+  height: ${(props) => props.size}px;
 `;

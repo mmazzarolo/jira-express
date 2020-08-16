@@ -6,11 +6,11 @@ import {
   setJiraDomain,
 } from "wilo-api";
 import { colorGrayLight, colorPrimaryDark } from "wilo-design";
+import { useHistory } from "react-router";
 import { delay } from "wilo-utils";
 import { darken } from "polished";
 import { Button } from "wilo-common";
 import { TextInput } from "./TextInput";
-import { useHistory } from "react-router";
 
 const hideDuration = 400;
 

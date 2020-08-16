@@ -37,6 +37,7 @@ export function useApi(
   options: ApiOptions = {},
   deps?: any
 ) {
+  const _persist = options.persist;
   const data = options.persist ? restoreApiResult(relativeUrl) : {};
   options.data = data;
   options.persist = undefined; // Override use-http's own persist mechanism
@@ -50,7 +51,7 @@ export function useApi(
       data,
       interceptors: {
         response: async function ({ response }) {
-          if (options.shouldCache) {
+          if (_persist) {
             persistApiResult(relativeUrl, response.data);
           }
           return response;
@@ -79,7 +80,7 @@ export function useJiraSearch(
   deps?: any[]
 ) {
   const queryParams = {
-    jql: `Summary ~ "${query}"`,
+    jql: `Summary ~ "${query.trim()}"`,
     maxResult: 10, // TODO: why is this param not working?
   };
   return useApi("search", { ...options, queryParams }, deps);

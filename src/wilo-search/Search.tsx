@@ -7,13 +7,15 @@ import styled from "styled-components";
 import { useDebounce } from "wilo-utils";
 import { SearchToolbar } from "./SearchToolbar";
 import { useHistory } from "react-router-dom";
+import { colorGrayLight } from "wilo-design";
+import { darken } from "polished";
 
 export const Search: FC = function () {
   const history = useHistory();
   const [searchText, setSearchText] = useState("");
   const debouncedSearchText = useDebounce(searchText, 500);
 
-  const searchIssuesStatus = useJiraSearch(searchText, {});
+  const searchIssuesStatus = useJiraSearch(debouncedSearchText, {});
 
   const {
     error: searchIssuesError,
@@ -23,10 +25,11 @@ export const Search: FC = function () {
   } = searchIssuesStatus;
 
   useEffect(() => {
-    if (debouncedSearchText) fetchSearchIssues();
+    if (debouncedSearchText.length > 2) fetchSearchIssues();
   }, [fetchSearchIssues, debouncedSearchText]);
 
-  const hasResults = Object.keys(searchIssuesData).length > 0;
+  const hasResults =
+    Object.keys(searchIssuesData).length > 0 && searchIssuesData.total > 0;
 
   const handleCloseClick = () => {
     history.goBack();
@@ -41,8 +44,22 @@ export const Search: FC = function () {
         onSearchInputChange={handleSearchInputChange}
         onCloseClick={handleCloseClick}
       />
-      {searchIssuesError && <ErrorWrapper></ErrorWrapper>}
-      {!hasResults && !searchIssuesError && <EmptyWrapper></EmptyWrapper>}
+      {searchIssuesError && (
+        <ErrorWrapper>{JSON.stringify(searchIssuesError)}</ErrorWrapper>
+      )}
+      {!hasResults && !searchIssuesError && debouncedSearchText.length < 2 && (
+        <EmptyWrapper>
+          <EmptyText>Search for Jira issues by ID or by description.</EmptyText>
+        </EmptyWrapper>
+      )}
+      {!hasResults &&
+        !searchIssuesError &&
+        debouncedSearchText.length > 2 &&
+        !searchIssuesLoading && (
+          <NoResultWrapper>
+            <NoResultText>No result.</NoResultText>
+          </NoResultWrapper>
+        )}
       {hasResults && (
         <IssuesList>
           {searchIssuesData?.issues?.map((issue: JiraIssue) => (
@@ -67,9 +84,32 @@ const EmptyWrapper = styled.div`
   align-items: center;
 `;
 
+const NoResultWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const NoResultText = styled.p`
+  font-size: 18px;
+  color: ${darken(0.24, colorGrayLight)};
+  font-weight: 300;
+  text-align: center;
+`;
+
 const ErrorWrapper = styled.div`
   display: flex;
   flex: 1;
   justify-content: center;
   align-items: center;
+  max-width: 70%;
+`;
+
+const EmptyText = styled.p`
+  font-size: 18px;
+  color: ${darken(0.24, colorGrayLight)};
+  font-weight: 300;
+  text-align: center;
+  max-width: 70%;
 `;
