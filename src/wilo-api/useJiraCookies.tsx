@@ -39,8 +39,8 @@ const useCookies = function (domain: string) {
 
 // React hook that retrieves the user's Jira domains by checking the Chrome
 // cookies.
-export const useJiraDomains = function () {
-  const domainsBlacklist = [
+export const useJiraAvailableDomains = function () {
+  const domainDenylist = [
     ".atlassian.net",
     "developer.atlassian.net",
     "ecosystem.atlassian.net",
@@ -48,7 +48,7 @@ export const useJiraDomains = function () {
   const [cookies, areCookiesLoaded] = useCookies("domain");
   const cookieDomains = cookies.map((cookie) => cookie.domain);
   const domains = uniq(cookieDomains)
-    .filter((domain) => !domainsBlacklist.includes(domain))
+    .filter((domain) => !domainDenylist.includes(domain))
     .map((domain) => domain.replace(".atlassian.net", ""));
   return [domains, areCookiesLoaded] as const;
 };

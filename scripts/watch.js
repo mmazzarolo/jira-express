@@ -17,7 +17,7 @@ const config = configFactory("development");
 
 // The classic webpack-dev-server can't be used to develop browser extensions,
 // so we remove the "webpackHotDevClient" from the config "entry" point.
-config.entry = config.entry.filter(function(entry) {
+config.entry = config.entry.filter(function (entry) {
   return !entry.includes("webpackHotDevClient");
 });
 
@@ -31,7 +31,7 @@ config.plugins.push(new ExtensionReloader());
 
 // Start Webpack in watch mode.
 const compiler = webpack(config);
-const watcher = compiler.watch({}, function(err) {
+const watcher = compiler.watch({}, function (err) {
   if (err) {
     console.error(err);
   } else {
@@ -39,7 +39,7 @@ const watcher = compiler.watch({}, function(err) {
     // "public" dir in the "build" dir (except for the index.html)
     fs.copySync(paths.appPublic, paths.appBuild, {
       dereference: true,
-      filter: file => file !== paths.appHtml
+      filter: (file) => file !== paths.appHtml,
     });
     // Report on console the succesfull build
     console.clear();

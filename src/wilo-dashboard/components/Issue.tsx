@@ -4,6 +4,7 @@ import { get } from "lodash";
 import { colorGrayLight } from "wilo-design";
 import { lighten } from "polished";
 import { JiraIssue } from "wilo-api/types";
+import { openJiraIssue } from "wilo-api";
 
 interface Props {
   data: JiraIssue;
@@ -14,14 +15,19 @@ export const Issue: FC<Props> = function ({ data }) {
   const title = data.fields.summary;
   const key = data.key;
   const assigneeIconUrl = get(data, 'fields.assignee.avatarUrls["32x32"]');
+  const statusName = get(data, "fields.status.name");
+  const handleClick = () => {
+    openJiraIssue(data.key);
+  };
   return (
-    <Root>
+    <Root onClick={handleClick}>
       <Title>{title}</Title>
       <Footer>
         <FooterLeft>
           <TypeIcon src={iconUrl} />
           <Key>{key}</Key>
         </FooterLeft>
+        {statusName && <StatusName>{statusName}</StatusName>}
         {assigneeIconUrl && <AssigneeIcon src={assigneeIconUrl} />}
       </Footer>
     </Root>
@@ -48,9 +54,10 @@ const Footer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-top: 12px;
 `;
 
-const FooterLeft = styled.p`
+const FooterLeft = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -68,9 +75,17 @@ const Key = styled.span`
   color: #5e6c84;
 `;
 
+const StatusName = styled.span`
+  font-size: 14px;
+  font-weight: 400;
+  color: #5e6c84;
+  text-align: right;
+  flex-grow: 1;
+`;
+
 const AssigneeIcon = styled.img`
   width: 16px;
   height: 16px;
   border-radius: 100%;
-  margin-left: 4px;
+  margin-left: 8px;
 `;
