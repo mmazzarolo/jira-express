@@ -23,7 +23,6 @@
     "styled-icons": "^10.15.0",
     "styled-normalize": "^8.0.7",
     "typescript": "^3.8.3",
-    "webextension-polyfill": "^0.6.0",
     "use-http": "^1.0.13"
   },
   "devDependencies": {
