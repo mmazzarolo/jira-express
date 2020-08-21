@@ -3,7 +3,7 @@ import styled, { keyframes, css } from "styled-components";
 import {
   useJiraCurrentUser,
   useJiraAvailableDomains,
-  setJiraDomain,
+  setCurrentJiraDomain,
 } from "wilo-api";
 import { colorGrayLight, colorPrimaryDark } from "wilo-design";
 import { useHistory } from "react-router";
@@ -31,7 +31,7 @@ export const Auth: FC = function () {
     if (loading || hiding) return;
     const currentUser = await get();
     if (currentUser && currentUser.displayName) {
-      setJiraDomain(domain);
+      await setCurrentJiraDomain(domain);
       if (hiding) return;
       setHiding(true);
       await delay(hideDuration);

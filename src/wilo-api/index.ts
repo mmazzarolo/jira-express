@@ -1,4 +1,3 @@
-export * from "./useJiraCookies";
-export * from "./useJiraRestApi";
+export * from "./jiraRestApi";
 export * from "./openJiraIssue";
 export * from "./jiraDomainManager";

@@ -1,10 +1,10 @@
-import { getJiraDomain } from "./jiraDomainManager";
+import { getCurrentJiraDomain } from "./jiraDomainManager";
 
-export function openJiraIssue(issueKey: string) {
-  const domain = getJiraDomain();
+export async function openJiraIssue(issueKey: string) {
+  const domain = getCurrentJiraDomain();
   if (!domain) {
     throw new Error("Invalid domain");
   }
   const url = `https://${domain}.atlassian.net/browse/${issueKey}`;
-  chrome.tabs.create({ url });
+  return browser.tabs.create({ url });
 }
