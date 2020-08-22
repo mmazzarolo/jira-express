@@ -17,9 +17,10 @@ enum DashboardStatus {
 }
 
 const getDashboardStatus = ({ error, data, loading }: UseFetch<any>) => {
+  const hasResults = Object.keys(data || {}).length > 0 && data.total > 0;
   if (error) {
     return DashboardStatus.Error;
-  } else if (Object.keys(data || {}).length === 0 && loading) {
+  } else if (!hasResults && loading) {
     return DashboardStatus.InitialLoading;
   } else if (loading) {
     return DashboardStatus.RefreshingContent;
@@ -36,6 +37,8 @@ export const Dashboard: FC = function () {
     error: recentIssuesError,
     data: recentIssuesData,
   } = recentIssuesStatus;
+  console.log("dashboardStatus", dashboardStatus);
+  console.log("recentIssuesData", recentIssuesData);
 
   const handleSearchClick = () => {
     history.push("/search");

@@ -49,10 +49,10 @@ compiler.watch({}, function (err) {
   } else {
     // Every time Webpack finishes recompiling copy all the assets of the
     // "public" dir in the "build" dir (except for the index.html)
-    // fs.copySync(paths.appPublic, paths.appBuild, {
-    //   dereference: true,
-    //   filter: (file) => file !== paths.appHtml,
-    // });
+    fs.copySync(paths.appPublic, paths.appBuild, {
+      dereference: true,
+      filter: (file) => file !== paths.appHtml,
+    });
     // Report on console the succesfull build
     console.clear();
     console.info(colors.green("Compiled successfully!"));

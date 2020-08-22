@@ -29,7 +29,8 @@ export const Search: FC = function () {
   }, [fetchSearchIssues, debouncedSearchText]);
 
   const hasResults =
-    Object.keys(searchIssuesData).length > 0 && searchIssuesData.total > 0;
+    Object.keys(searchIssuesData || {}).length > 0 &&
+    searchIssuesData.total > 0;
 
   const handleCloseClick = () => {
     history.goBack();

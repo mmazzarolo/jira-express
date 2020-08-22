@@ -10,9 +10,7 @@ interface Props {
 export const SettingsToolbar: FC<Props> = function ({ loading, onCloseClick }) {
   return (
     <Toolbar loading={loading} title="Settings">
-      <>
-        <IconButton icon={Close} onClick={onCloseClick} />
-      </>
+      <IconButton icon={Close} onClick={onCloseClick} />
     </Toolbar>
   );
 };

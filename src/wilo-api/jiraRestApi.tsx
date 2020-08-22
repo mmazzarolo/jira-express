@@ -1,5 +1,23 @@
 import useFetch, { IncomingOptions } from "use-http";
-import { getJiraDomain } from "./jiraDomainManager";
+import { getCurrentJiraDomain } from "./jiraDomainManager";
+
+const jiraRestApiResultsStorageKeyPrefix = `jira-rest-api`;
+let jiraRestApiResultsCache: Record<string, any> = {};
+
+export async function initializeJiraRestApi() {
+  const storage = await browser.storage.local.get();
+  console.log("storage", storage);
+  Object.entries(storage).forEach(([key, value]) => {
+    if (key.startsWith(jiraRestApiResultsStorageKeyPrefix)) {
+      jiraRestApiResultsCache[key] = value;
+    }
+  });
+}
+
+export async function clearJiraRestApi() {
+  jiraRestApiResultsCache = {};
+  await browser.storage.local.remove(Object.keys(jiraRestApiResultsCache));
+}
 
 function buildJiraApiUrl(
   domain: string,
@@ -15,15 +33,10 @@ function buildJiraApiUrl(
   return url.href;
 }
 
-function persistApiResult(relativeUrl: string, data: any) {
-  const key = `api_${relativeUrl}`;
-  localStorage.setItem(key, JSON.stringify(data));
-}
-
-function restoreApiResult(relativeUrl: string) {
-  const key = `api_${relativeUrl}`;
-  const storedApiResult = localStorage.getItem(key);
-  return storedApiResult ? JSON.parse(storedApiResult) : {};
+async function persistApiResult(relativeUrl: string, data: any) {
+  const key = `${jiraRestApiResultsStorageKeyPrefix}-${relativeUrl}`;
+  jiraRestApiResultsCache[key] = data;
+  return browser.storage.local.set({ [key]: data });
 }
 
 export interface ApiOptions extends IncomingOptions {
@@ -38,17 +51,19 @@ export function useApi(
   deps?: any
 ) {
   const _persist = options.persist;
-  const data = options.persist ? restoreApiResult(relativeUrl) : {};
-  options.data = data;
-  options.persist = undefined; // Override use-http's own persist mechanism
-  const domain = options.domain || getJiraDomain() || "invalid-domain";
+  if (_persist) {
+    const cacheKey = `${jiraRestApiResultsStorageKeyPrefix}-${relativeUrl}`;
+    options.data = jiraRestApiResultsCache[cacheKey];
+    options.persist = undefined; // Override use-http's own persist mechanism
+  }
+  const domain = options.domain || getCurrentJiraDomain() || "invalid-domain";
   const queryParams = options.queryParams;
   const url = buildJiraApiUrl(domain, relativeUrl, queryParams);
   return useFetch(
     url,
     {
       ...options,
-      data,
+      data: options.data,
       interceptors: {
         response: async function ({ response }) {
           if (_persist) {

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { SettingsToolbar } from "./SettingsToolbar";
 import { Button } from "wilo-common";
-import { clearJiraDomain } from "wilo-api";
+import { clearJiraDomainManager, clearJiraRestApi } from "wilo-api";
 
 export const Settings: FC = function () {
   const history = useHistory();
@@ -13,8 +13,9 @@ export const Settings: FC = function () {
     history.goBack();
   };
 
-  const handleDomainChangeClick = () => {
-    clearJiraDomain();
+  const handleDomainChangeClick = async () => {
+    await clearJiraDomainManager();
+    await clearJiraRestApi();
     history.replace("/auth");
   };
 
