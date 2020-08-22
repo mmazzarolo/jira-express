@@ -6,7 +6,6 @@ let jiraRestApiResultsCache: Record<string, any> = {};
 
 export async function initializeJiraRestApi() {
   const storage = await browser.storage.local.get();
-  console.log("storage", storage);
   Object.entries(storage).forEach(([key, value]) => {
     if (key.startsWith(jiraRestApiResultsStorageKeyPrefix)) {
       jiraRestApiResultsCache[key] = value;
@@ -15,8 +14,8 @@ export async function initializeJiraRestApi() {
 }
 
 export async function clearJiraRestApi() {
-  jiraRestApiResultsCache = {};
   await browser.storage.local.remove(Object.keys(jiraRestApiResultsCache));
+  jiraRestApiResultsCache = {};
 }
 
 function buildJiraApiUrl(

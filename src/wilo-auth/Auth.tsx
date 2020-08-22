@@ -1,37 +1,49 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
 import {
   useJiraCurrentUser,
   useJiraAvailableDomains,
   setCurrentJiraDomain,
 } from "wilo-api";
-import { colorGrayLight, colorPrimaryDark } from "wilo-design";
+import { colorGrayLight, colorPrimary } from "wilo-design";
 import { useHistory } from "react-router";
 import { delay } from "wilo-utils";
 import { darken } from "polished";
-import { Button } from "wilo-common";
+import { Button, Spacer } from "wilo-common";
+import { openLink } from "wilo-utils/openLink";
 import { TextInput } from "./TextInput";
+import { DomainHint } from "./DomainHint";
 
-const hideDuration = 400;
+const hideDuration = 200;
 
 export const Auth: FC = function () {
   const history = useHistory();
-  const [recentDomains] = useJiraAvailableDomains();
-  const [domain, setDomain] = useState("");
+  const [availableDomains] = useJiraAvailableDomains();
+  const [selectedDomain, setSelectedDomain] = useState("");
   const [hiding, setHiding] = useState(false);
-  const { get, loading } = useJiraCurrentUser({ domain: domain });
+  const { get, loading, error } = useJiraCurrentUser({
+    domain: selectedDomain,
+  });
+  const [loginError, setLoginError] = useState<Error | null>(null);
 
-  const recentDomain = recentDomains[0];
+  useEffect(() => {
+    setLoginError(error);
+  }, [error]);
 
-  function handleHintedDomainClick() {
-    setDomain(recentDomain);
+  function handleTextInputChange(text: string) {
+    setLoginError(null);
+    setSelectedDomain(text);
+  }
+
+  function handleHintedDomainClick(domain: string) {
+    setSelectedDomain(domain);
   }
 
   async function handleButtonClick() {
     if (loading || hiding) return;
     const currentUser = await get();
     if (currentUser && currentUser.displayName) {
-      await setCurrentJiraDomain(domain);
+      await setCurrentJiraDomain(selectedDomain);
       if (hiding) return;
       setHiding(true);
       await delay(hideDuration);
@@ -39,38 +51,60 @@ export const Auth: FC = function () {
     }
   }
 
+  function handleLoginLinkClick() {
+    openLink("https://id.atlassian.com/login");
+    window.close();
+  }
+
   return (
     <Root hiding={hiding}>
       <Content>
-        {recentDomains.length === 0 && (
-          <TopContent>
-            <Question>What's your Jira domain?</Question>
-            <Description>
-              To use this extension you must be logged-in in the Jira domain you
-              want to use.
-            </Description>
-          </TopContent>
-        )}
-        {recentDomains.length > 0 && (
+        {availableDomains.length === 0 && (
           <>
             <TopContent>
-              <Question>What's your Jira domain?</Question>
+              <Question>What's your Jira account?</Question>
               <Description>
-                Please notice that this browser must be logged-in in the Jira
-                domain that you want use.
+                To use this extension your browser must be logged-in to the Jira
+                account you want to use.
+              </Description>
+            </TopContent>
+            <JiraRedirectLink onClick={handleLoginLinkClick}>
+              Log in to your account.
+            </JiraRedirectLink>
+            <Spacer />
+          </>
+        )}
+        {availableDomains.length > 0 && (
+          <>
+            <TopContent>
+              <Question>What's your Jira account?</Question>
+              <Description>
+                Please notice that this browser must be logged-in to the Jira
+                account that you want use.
               </Description>
             </TopContent>
             <Form>
-              <TextInput value={domain} onChange={setDomain} />
-              <Hint visible={!!recentDomain && !domain}>
-                Pssst, could it be{" "}
-                <HintDomain onClick={handleHintedDomainClick}>
-                  {recentDomain}.atlassian.net
-                </HintDomain>
-                ?
-              </Hint>
+              <TextInput
+                value={selectedDomain}
+                onChange={handleTextInputChange}
+              />
+              {!loginError && (
+                <DomainHint
+                  availableDomains={availableDomains}
+                  visible={!selectedDomain}
+                  onDomainClick={handleHintedDomainClick}
+                />
+              )}
+              {loginError && (
+                <LoginError>
+                  <b>⚠️ Unable to access this account.</b>
+                  <br />
+                  Make sure this browser is logged-in to {selectedDomain} or try
+                  again later.
+                </LoginError>
+              )}
             </Form>
-            <Button disabled={!domain} onClick={handleButtonClick}>
+            <Button disabled={!selectedDomain} onClick={handleButtonClick}>
               Continue
             </Button>
           </>
@@ -142,10 +176,22 @@ const Question = styled.p`
 const Description = styled.p`
   opacity: 0;
   font-size: 18px;
-  color: #49596b;
   color: ${darken(0.24, colorGrayLight)};
   font-weight: 300;
   animation: ${fadeInTranslateUp} ease-in 200ms forwards 100ms;
+`;
+
+const JiraRedirectLink = styled.div`
+  opacity: 0;
+  font-size: 18px;
+  color: ${colorPrimary};
+  cursor: pointer;
+  font-weight: 400;
+  animation: ${fadeInTranslateUp} ease-in 200ms forwards 300ms;
+  text-decoration: underline;
+  &:hover {
+    color: ${darken(0.1, colorPrimary)};
+  }
 `;
 
 const Form = styled.form`
@@ -155,16 +201,8 @@ const Form = styled.form`
   animation: ${fadeInTranslateUp} ease-in 200ms forwards 300ms;
 `;
 
-const Hint = styled.span<{ visible: boolean }>`
-  font-size: 12px;
-  margin-top: 16px;
+const LoginError = styled.p`
+  font-size: 14px;
+  color: ${darken(0.3, colorGrayLight)};
   font-weight: 300;
-  color: ${colorGrayLight};
-  transition: all 200ms;
-  opacity: ${({ visible }) => (visible ? 1 : 0)};
-`;
-
-const HintDomain = styled.span`
-  cursor: pointer;
-  color: ${colorPrimaryDark};
 `;

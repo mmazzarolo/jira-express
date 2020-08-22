@@ -37,8 +37,6 @@ export const Dashboard: FC = function () {
     error: recentIssuesError,
     data: recentIssuesData,
   } = recentIssuesStatus;
-  console.log("dashboardStatus", dashboardStatus);
-  console.log("recentIssuesData", recentIssuesData);
 
   const handleSearchClick = () => {
     history.push("/search");

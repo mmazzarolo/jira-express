@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 interface Props {
-  orientation: "vertical" | "horizontal";
+  orientation?: "vertical" | "horizontal";
 }
 
 export const Spacer = styled.div<Props>`

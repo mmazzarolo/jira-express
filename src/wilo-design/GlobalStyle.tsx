@@ -18,7 +18,7 @@ export const GlobalStyle = createGlobalStyle`
     font-style: normal;
     font-weight: 400;
     line-height: 1.4;
-    background: black;
+    background: white;
   }
 
   p {

@@ -18,6 +18,7 @@ export const Issue: FC<Props> = function ({ data }) {
   const statusName = get(data, "fields.status.name");
   const handleClick = () => {
     openJiraIssue(data.key);
+    window.close();
   };
   return (
     <Root onClick={handleClick}>
@@ -47,7 +48,14 @@ const Root = styled.div`
   }
 `;
 
-const Title = styled.summary``;
+const Title = styled.p`
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+  max-width: 100%;
+  overflow: hidden;
+`;
 
 const Footer = styled.div`
   display: flex;

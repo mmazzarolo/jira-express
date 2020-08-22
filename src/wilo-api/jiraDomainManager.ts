@@ -33,6 +33,7 @@ export async function setCurrentJiraDomain(domain: string) {
 // cookies.
 export const useJiraAvailableDomains = function () {
   const domainDenylist = [
+    "atlassian.net",
     ".atlassian.net",
     "developer.atlassian.net",
     "ecosystem.atlassian.net",
