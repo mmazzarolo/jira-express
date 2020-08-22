@@ -5,39 +5,46 @@ process.env.BABEL_ENV = "development";
 process.env.NODE_ENV = "development";
 
 const fs = require("fs-extra");
+const path = require("path");
 const paths = require("react-scripts/config/paths");
 const webpack = require("webpack");
 const configFactory = require("react-scripts/config/webpack.config");
 const colors = require("colors/safe");
 const ExtensionReloader = require("webpack-extension-reloader");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-// Create the Webpack config usings the same settings used by the "start" script
+// Force a TARGET_BROWSER env var to be specified
+if (!["chrome", "firefox"].includes(process.env.TARGET_BROWSER)) {
+  throw new Error(
+    `Invalid "TARGET_BROWSER" env var: ${process.env.TARGET_BROWSER}`
+  );
+}
+
+// Use a different build directory based on the supported browser.
+paths.appBuild = path.resolve(
+  __dirname,
+  `../build-${process.env.TARGET_BROWSER}`
+);
+
+// Clean the build directory before running.
+fs.rmdirSync(paths.appBuild, { recursive: true });
+
+// Create the Webpack config usings the same settings used by the "build" script
 // of create-react-app.
 const config = configFactory("development");
-
-// The classic webpack-dev-server can't be used to develop browser extensions,
-// so we remove the "webpackHotDevClient" from the config "entry" point.
-config.entry = config.entry.filter(function (entry) {
-  return !entry.includes("webpackHotDevClient");
-});
 
 // Edit the Webpack config by setting the output directory to "./build".
 config.output.path = paths.appBuild;
 paths.publicUrl = paths.appBuild + "/";
 
-// TODO:
-// config.plugins.push(new CleanWebpackPlugin());
-
 // Add the webpack-extension-reloader plugin to the Webpack config.
 // It notifies and reloads the extension on code changes.
 config.plugins.push(new ExtensionReloader());
 
-// TODO:
+// Copy browser-specific files into the output directory.
 config.plugins.push(
   new CopyWebpackPlugin({
-    patterns: [{ from: "./chrome" }],
+    patterns: [{ from: `./${process.env.TARGET_BROWSER}` }],
   })
 );
 
