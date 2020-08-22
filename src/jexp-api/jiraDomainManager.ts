@@ -1,4 +1,4 @@
-import { useCookies } from "wilo-utils/useCookies";
+import { useCookies } from "jexp-utils/useCookies";
 import { uniq } from "lodash";
 
 const currentJiraDomainStorageKey = "jira-current-domain";

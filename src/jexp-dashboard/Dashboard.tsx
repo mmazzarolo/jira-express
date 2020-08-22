@@ -1,12 +1,12 @@
 import React from "react";
 import { FC } from "react";
-import { Issue } from "wilo-common";
-import { useJiraRecentIssues } from "wilo-api";
-import { JiraIssue } from "wilo-api/types";
+import { Issue } from "jexp-common";
+import { useJiraRecentIssues } from "jexp-api";
+import { JiraIssue } from "jexp-api/types";
 import styled from "styled-components";
 import { DashboardToolbar } from "./DashboardToolbar";
 import { useHistory } from "react-router-dom";
-import { PulsatingLogo } from "wilo-common";
+import { PulsatingLogo } from "jexp-common";
 import { UseFetch } from "use-http";
 
 enum DashboardStatus {

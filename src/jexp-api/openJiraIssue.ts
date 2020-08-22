@@ -1,5 +1,5 @@
 import { getCurrentJiraDomain } from "./jiraDomainManager";
-import { openLink } from "wilo-utils/openLink";
+import { openLink } from "jexp-utils/openLink";
 
 export async function openJiraIssue(issueKey: string) {
   const domain = getCurrentJiraDomain();

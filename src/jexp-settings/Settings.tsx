@@ -3,8 +3,8 @@ import { FC } from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { SettingsToolbar } from "./SettingsToolbar";
-import { Button } from "wilo-common";
-import { clearJiraDomainManager, clearJiraRestApi } from "wilo-api";
+import { Button } from "jexp-common";
+import { clearJiraDomainManager, clearJiraRestApi } from "jexp-api";
 
 export const Settings: FC = function () {
   const history = useHistory();

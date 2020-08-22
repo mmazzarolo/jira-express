@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { FC } from "react";
-import { Issue } from "wilo-common";
-import { useJiraSearch } from "wilo-api";
-import { JiraIssue } from "wilo-api/types";
+import { Issue } from "jexp-common";
+import { useJiraSearch } from "jexp-api";
+import { JiraIssue } from "jexp-api/types";
 import styled from "styled-components";
-import { useDebounce } from "wilo-utils";
+import { useDebounce } from "jexp-utils";
 import { SearchToolbar } from "./SearchToolbar";
 import { useHistory } from "react-router-dom";
-import { colorGrayLight } from "wilo-design";
+import { colorGrayLight } from "jexp-design";
 import { darken } from "polished";
 
 export const Search: FC = function () {

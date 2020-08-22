@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { MemoryRouter, Switch, Route } from "react-router-dom";
-import { Auth } from "wilo-auth";
-import { Dashboard } from "wilo-dashboard";
-import { Search } from "wilo-search";
-import { getCurrentJiraDomain } from "wilo-api";
-import { Settings } from "wilo-settings";
+import { Auth } from "jexp-auth";
+import { Dashboard } from "jexp-dashboard";
+import { Search } from "jexp-search";
+import { getCurrentJiraDomain } from "jexp-api";
+import { Settings } from "jexp-settings";
 
 function getInitialRouterEntries() {
   const domain = getCurrentJiraDomain();

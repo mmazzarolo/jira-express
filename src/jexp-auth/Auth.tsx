@@ -4,13 +4,13 @@ import {
   useJiraCurrentUser,
   useJiraAvailableDomains,
   setCurrentJiraDomain,
-} from "wilo-api";
-import { colorGrayLight, colorPrimary } from "wilo-design";
+} from "jexp-api";
+import { colorGrayLight, colorPrimary } from "jexp-design";
 import { useHistory } from "react-router";
-import { delay } from "wilo-utils";
+import { delay } from "jexp-utils";
 import { darken } from "polished";
-import { Button, Spacer } from "wilo-common";
-import { openLink } from "wilo-utils/openLink";
+import { Button, Spacer } from "jexp-common";
+import { openLink } from "jexp-utils/openLink";
 import { TextInput } from "./TextInput";
 import { DomainHint } from "./DomainHint";
 
