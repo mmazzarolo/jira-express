@@ -25,3 +25,7 @@ yarn-error.log*
 
 # mocks
 ./mockresult.json
+
+# project specific ignores
+/build-chrome
+/build-firefox
