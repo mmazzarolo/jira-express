@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FC } from "react";
 import styled from "styled-components/macro";
-import { colorPrimaryDark, colorGrayLight, colorPrimary } from "wilo-design";
+import { colorPrimaryDark, colorGrayLight, colorPrimary } from "jexp-design";
 
 interface Props {
   value: string;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { GlobalStyle } from "wilo-design";
-import { initializeJiraDomainManager, initializeJiraRestApi } from "wilo-api";
+import { GlobalStyle } from "jexp-design";
+import { initializeJiraDomainManager, initializeJiraRestApi } from "jexp-api";
 import { Router } from "./Router";
 
 export function App() {
@@ -13,9 +13,6 @@ export function App() {
   useEffect(() => {
     initialize();
   }, [initialized]);
-  if (!initialized) {
-    return null;
-  }
   return (
     <>
       <GlobalStyle />

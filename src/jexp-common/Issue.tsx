@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { get } from "lodash";
-import { colorGrayLight } from "wilo-design";
+import { colorGrayLight } from "jexp-design";
 import { lighten } from "polished";
-import { JiraIssue } from "wilo-api/types";
-import { openJiraIssue } from "wilo-api";
+import { JiraIssue } from "jexp-api/types";
+import { openJiraIssue } from "jexp-api";
 
 interface Props {
   data: JiraIssue;

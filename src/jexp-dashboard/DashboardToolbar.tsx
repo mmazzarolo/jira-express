@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Toolbar, IconButton, Spacer } from "wilo-common";
+import { Toolbar, IconButton, Spacer } from "jexp-common";
 import { Search } from "@styled-icons/ionicons-solid";
 import { Settings } from "@styled-icons/material";
 

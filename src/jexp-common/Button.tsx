@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { darken, transparentize } from "polished";
-import { colorPrimary } from "wilo-design";
+import { colorPrimary } from "jexp-design";
 
 interface Props {}
 

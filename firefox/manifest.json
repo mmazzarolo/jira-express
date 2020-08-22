@@ -1,9 +1,9 @@
 {
-  "name": "Wilo",
+  "name": "Jira Express",
   "version": "1.0.0",
-  "description": "",
+  "description": "The fastest way to browse and search your Jira issues.",
   "manifest_version": 2,
-  "short_name": "wilo",
+  "short_name": "jira-express",
   "permissions": [
     "storage",
     "cookies",

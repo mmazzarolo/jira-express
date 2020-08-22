@@ -1,5 +1,5 @@
 {
-  "name": "wilo",
+  "name": "jira-express",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -16,28 +16,27 @@
     "lint:fix": "eslint --fix 'src/' --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "polished": "^3.6.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.1",
+    "react-scripts": "^3.4.3",
     "styled-components": "^5.1.1",
-    "styled-icons": "^10.15.0",
+    "styled-icons": "^10.17.0",
     "styled-normalize": "^8.0.7",
-    "typescript": "^3.8.3",
+    "typescript": "^4.0.2",
     "use-http": "^1.0.13"
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^78.0.1",
-    "@types/jest": "^26.0.9",
+    "@types/jest": "^26.0.10",
     "@types/lodash": "^4.14.159",
-    "@types/node": "^14.0.27",
+    "@types/node": "^14.6.0",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
     "@types/styled-components": "^5.1.2",
-    "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",

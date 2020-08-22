@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { colorGrayLight, colorPrimaryDark } from "wilo-design";
+import { colorGrayLight, colorPrimaryDark } from "jexp-design";
 
 interface Props {
   availableDomains?: string[];

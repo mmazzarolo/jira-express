@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Toolbar, IconButton } from "wilo-common";
+import { Toolbar, IconButton } from "jexp-common";
 import { Close } from "@styled-icons/ionicons-solid";
 
 interface Props {

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
-import { colorPrimary } from "wilo-design";
-import { logoInvertedImage } from "wilo-assets";
+import { colorPrimary } from "jexp-design";
+import { logoInvertedImage } from "jexp-assets";
 import { ProgressBar } from "./ProgressBar";
 
 interface Props {

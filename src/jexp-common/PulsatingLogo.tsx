@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled, { keyframes } from "styled-components";
-import { logoImage } from "wilo-assets";
+import { logoImage } from "jexp-assets";
 
 interface Props {
   size?: number;
