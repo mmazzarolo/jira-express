@@ -29,8 +29,7 @@ export async function setCurrentJiraDomain(domain: string) {
   return browser.storage.local.set({ [currentJiraDomainStorageKey]: domain });
 }
 
-// React hook that retrieves the user's Jira domains by checking the Chrome
-// cookies.
+// React hook that retrieves the user's Jira domains by checking the cookies.
 export const useJiraAvailableDomains = function () {
   const domainDenylist = [
     "atlassian.net",

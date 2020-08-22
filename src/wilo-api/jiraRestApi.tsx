@@ -1,6 +1,11 @@
 import useFetch, { IncomingOptions } from "use-http";
 import { getCurrentJiraDomain } from "./jiraDomainManager";
 
+const jiraRestApiMaxResults = {
+  recentIssues: 25,
+  search: 25,
+};
+
 const jiraRestApiResultsStorageKeyPrefix = `jira-rest-api`;
 let jiraRestApiResultsCache: Record<string, any> = {};
 
@@ -83,7 +88,7 @@ export function useJiraCurrentUser(options?: ApiOptions) {
 export function useJiraRecentIssues(options?: ApiOptions, deps?: any[]) {
   const queryParams = {
     jql: "issuekey in issueHistory() order by lastViewed DESC",
-    maxResult: 10, // TODO: why is this param not working?
+    maxResults: jiraRestApiMaxResults.recentIssues,
   };
   return useApi("search", { ...options, queryParams }, deps);
 }
@@ -95,7 +100,7 @@ export function useJiraSearch(
 ) {
   const queryParams = {
     jql: `Summary ~ "${query.trim()}"`,
-    maxResult: 10, // TODO: why is this param not working?
+    maxResults: jiraRestApiMaxResults.search,
   };
   return useApi("search", { ...options, queryParams }, deps);
 }
