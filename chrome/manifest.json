@@ -1,6 +1,7 @@
 {
   "name": "Jira Express",
   "version": "1.0.0",
+  "version_name": "1.0.0",
   "description": "The fastest way to browse and search your Jira issues.",
   "manifest_version": 2,
   "short_name": "jira-express",
