@@ -1,4 +1,4 @@
-# Jira Express <img src="./.github/banner.png" width="110" align="left">
+# Jira Express <img src="./.github/banner.png" width="90" align="left">
 
 A quick access to your Jira tickets.
 
@@ -23,7 +23,7 @@ Built with Create React App, TypeScript, and Styled-Components.
 My goal with this project was just to create something that would allow me to avoid opening the Jira web interface as much as possible by speeding up the ticket search process.
 
 <p align="center" margin-bottom="0">
-  <img alt="Jira Express" width="240" height="auto" src="./.github/screenshot-dashboard.png">
+  <img alt="Jira Express" width="240" height="auto" src="./.github/preview.gif">
 </p>
 
 ## Contributing
