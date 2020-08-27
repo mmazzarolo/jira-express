@@ -9,18 +9,28 @@ Jira Express is a Chrome and Firefox extension that gives you a quick access to 
 
 Built with Create React App, TypeScript, and Styled-Components.
 
-**⚠️ Jira Express is still a WIP and it's not yet available in the Chrome and Firefox web stores.**
-
 <br />
 
 <p align="center" margin-bottom="0">
   <img alt="Jira Express" width="auto" height="auto" src="./.github/screenshot-dashboard.png">
 </p>
 
+<p align="center">
+  <a href="https://chrome.google.com/webstore/detail/lpkkljaepfhmbjaepaoeoadlmfoipnoc">
+    <img alt="Download for Chrome" width="auto" height="48" src="./.github/chrome-badge.png">
+  </a>
+  <a href="https://addons.mozilla.org/en-US/firefox/addon/jira-express/">
+    <img alt="Download for Firefox" width="auto" height="48" src="./.github/firefox-badge.png">
+  </a>
+</p>
+
 ## Overview
 
-**Jira Express is not a substitute of the full blown Jira interface.**  
-My goal with this project was just to create something that would allow me to avoid opening the Jira web interface as much as possible by speeding up the ticket search process.
+**Jira Express is not a substitute of the full blown Jira interface.**
+
+My goal with this project was just creating something that would allow me to avoid opening the Jira web interface as much as possible by speeding up the ticket search process.
+
+<br />
 
 <p align="center" margin-bottom="0">
   <img alt="Jira Express" width="240" height="auto" src="./.github/preview.gif">
