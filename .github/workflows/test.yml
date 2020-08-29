@@ -1,4 +1,4 @@
-name: Lint & Test
+name: Lint & Typecheck
 
 on:
   push:
@@ -35,14 +35,15 @@ jobs:
           path: "."
           key: ${{ github.sha }}
       - run: npm run lint
-  # test:
-  #   runs-on: ubuntu-latest
-  #   name: Test
-  #   needs: install
-  #   steps:
-  #     - uses: actions/cache@v1
-  #       id: restore-build
-  #       with:
-  #         path: "."
-  #         key: ${{ github.sha }}
-  #     - run: npm run test
+
+  typecheck:
+    runs-on: ubuntu-latest
+    name: Typecheck
+    needs: install
+    steps:
+      - uses: actions/cache@v1
+        id: restore-build
+        with:
+          path: "."
+          key: ${{ github.sha }}
+      - run: npm run typecheck
