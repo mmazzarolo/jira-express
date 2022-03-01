@@ -1,3 +1,5 @@
+## NOT ACTIVELY MAINTAINED ANYMORE
+
 # Jira Express <img src="./.github/banner.png" width="90" align="left">
 
 A quick access to your Jira tickets.
